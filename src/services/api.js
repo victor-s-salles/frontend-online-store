@@ -32,4 +32,3 @@ export async function getProductById(productId) {
   const pesquisaProductId = response.json();
   return pesquisaProductId;
 }
-
