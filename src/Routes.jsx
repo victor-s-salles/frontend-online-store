@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Principal from './Pages/Principal';
 import Cart from './Pages/Cart';
+import ProdutoDetalhado from './components/ProdutoDetalhado';
 
 class Router extends React.Component {
   constructor() {
@@ -37,6 +38,8 @@ class Router extends React.Component {
             cartItensArray={ cartItensArray }
           />) }
         />
+        <Route path="/produtoDetalhado/:id" component={ ProdutoDetalhado } />
+
       </Switch>
     );
   }
