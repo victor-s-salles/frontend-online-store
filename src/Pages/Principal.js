@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Produto from '../components/Produto';
 import { getProductsFromCategoryAndQuery } from '../services/api';
-import { Link } from 'react-router-dom';
 import Categories from '../components/Categories';
 
 class Principal extends React.Component {
