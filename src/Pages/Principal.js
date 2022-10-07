@@ -19,7 +19,6 @@ class Principal extends React.Component {
     this.setState({
       [name]: value,
     });
-    console.log(value);
   };
 
   handleClick = async () => {
@@ -34,13 +33,20 @@ class Principal extends React.Component {
         valor: true,
         resultadoDaBusca: categories,
       });
-      console.log(categories.results);
     }
+  };
+
+  getCategorieProducts = async ({ target }) => {
+    const response = await getProductsFromCategoryAndQuery(target.id);
+    const { results } = response;
+    this.setState({
+      valor: true,
+      resultadoDaBusca: { results },
+    });
   };
 
   render() {
     const { campoDeBusca, valor, resultadoDaBusca } = this.state;
-    // const { results } = resultadoDaBusca;
     return (
       <div>
         <div>
@@ -59,8 +65,7 @@ class Principal extends React.Component {
             Pesquisar
           </button>
         </div>
-        <Categories />
-        <input type="text" />
+        <Categories getProducts={ this.getCategorieProducts } />
         <h3
           data-testid="home-initial-message"
         >
