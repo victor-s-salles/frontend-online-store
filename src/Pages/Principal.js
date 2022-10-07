@@ -78,6 +78,7 @@ class Principal extends React.Component {
             productName={ ele.title }
             productPrice={ ele.price }
             productImage={ ele.thumbnail }
+            productId={ ele.id }
           />)) : <p>Nenhum produto foi encontrado</p> }
         <Link to="/cart" data-testid="shopping-cart-button">Cart</Link>
       </div>
