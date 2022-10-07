@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import propTypes from 'prop-types';
 import Produto from '../components/Produto';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import Categories from '../components/Categories';
@@ -11,8 +12,14 @@ class Principal extends React.Component {
       campoDeBusca: '',
       valor: false,
       resultadoDaBusca: {},
+
     };
   }
+
+  getCartItens = (objItem) => {
+    const { getCartItensArray } = this.props;
+    getCartItensArray(objItem);
+  };
 
   onChange = ({ target }) => {
     const { name, value } = target;
@@ -74,6 +81,8 @@ class Principal extends React.Component {
         </h3>
         {valor ? resultadoDaBusca.results.map((ele, index) => (
           <Produto
+            getCartItens={ this.getCartItens }
+            objItem={ ele }
             key={ index }
             productName={ ele.title }
             productPrice={ ele.price }
@@ -84,5 +93,9 @@ class Principal extends React.Component {
     );
   }
 }
+
+Principal.propTypes = {
+  getCartItensArray: propTypes.func.isRequired,
+};
 
 export default Principal;
