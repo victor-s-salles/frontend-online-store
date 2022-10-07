@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class Produto extends React.Component {
   render() {
-     const { productName, productPrice, productImage,
+    const { productName, productPrice, productImage,
       getCartItens, objItem, productId } = this.props;
     return (
       <div data-testid="product">
@@ -36,7 +36,7 @@ Produto.propTypes = {
     price: propTypes.string,
     thumbnail: propTypes.string,
   }).isRequired,
-productId: propTypes.string.isRequired,
+  productId: propTypes.string.isRequired,
 };
 
 export default Produto;
