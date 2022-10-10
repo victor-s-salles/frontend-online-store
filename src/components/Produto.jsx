@@ -1,11 +1,27 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import {
+  filtraOsProdutos,
+  recuperaProdutos,
+  SalvaProduto } from '../localStorage/localStorage';
 
 class Produto extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      productArray: [],
+    };
+  }
+
+  componentDidMount() {
+    const { objItem } = this.props;
+    this.setState({ productArray: objItem });
+  }
+
   render() {
-    const { productName, productPrice, productImage,
-      getCartItens, objItem, productId } = this.props;
+    const { productName, productPrice, productImage, productId } = this.props;
+    const { productArray } = this.state;
     return (
       <div data-testid="product">
         <Link to={ `/produtoDetalhado/${productId}` } data-testid="product-detail-link">
@@ -16,7 +32,16 @@ class Produto extends React.Component {
         <button
           data-testid="product-add-to-cart"
           type="button"
-          onClick={ () => getCartItens(objItem) }
+          onClick={ () => {
+            const recupera = recuperaProdutos();
+            if (recupera !== null) {
+              recupera.unshift(productArray);
+              SalvaProduto(recupera);
+              const productlength = recupera
+                .filter((ele) => ele.id === recupera[0].id).length;
+              filtraOsProdutos(recupera[0].id, productlength);
+            } else SalvaProduto([productArray]);
+          } }
         >
           Adicionar ao carrinho
 
@@ -28,12 +53,11 @@ class Produto extends React.Component {
 
 Produto.propTypes = {
   productName: propTypes.string.isRequired,
-  productPrice: propTypes.string.isRequired,
+  productPrice: propTypes.number.isRequired,
   productImage: propTypes.string.isRequired,
-  getCartItens: propTypes.func.isRequired,
   objItem: propTypes.shape({
     title: propTypes.string,
-    price: propTypes.string,
+    price: propTypes.number,
     thumbnail: propTypes.string,
   }).isRequired,
   productId: propTypes.string.isRequired,
