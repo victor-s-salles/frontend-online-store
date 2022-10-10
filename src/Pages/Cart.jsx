@@ -1,11 +1,12 @@
 import React from 'react';
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 import ItemCart from '../components/ItemCart';
+import { recuperaProdutos } from '../localStorage/localStorage';
 
 class Cart extends React.Component {
   constructor() {
     super();
-    this.state = { temAlgo: false };
+    this.state = { temAlgo: false, cartArray: [] };
   }
 
   componentDidMount() {
@@ -13,15 +14,17 @@ class Cart extends React.Component {
   }
 
   validadeItens = () => {
-    const { cartItensArray } = this.props;
-    if (!cartItensArray.length < 1) {
-      this.setState({ temAlgo: true });
+    // const { cartItensArray } = this.props;
+    const produtos = recuperaProdutos();
+    if (produtos !== null) {
+      // const filtro = produtos.filter((ele) => ele.title);
+      this.setState({ temAlgo: true, cartArray: produtos });
     }
   };
 
   render() {
-    const { cartItensArray } = this.props;
-    const { temAlgo } = this.state;
+    // const { cartItensArray } = this.props;
+    const { temAlgo, cartArray } = this.state;
     return (
       <div>
         {!temAlgo && (
@@ -30,7 +33,7 @@ class Cart extends React.Component {
           </p>
         )}
         {temAlgo
-          && cartItensArray.map((item, index) => (
+          && cartArray.map((item, index) => (
             <ItemCart key={ index } cartItensArray={ item } />
           ))}
       </div>
@@ -38,8 +41,8 @@ class Cart extends React.Component {
   }
 }
 
-Cart.propTypes = {
-  cartItensArray: propTypes.arrayOf.isRequired,
-};
+// Cart.propTypes = {
+//   cartItensArray: propTypes.arrayOf.isRequired,
+// };
 
 export default Cart;
