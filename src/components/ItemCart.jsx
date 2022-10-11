@@ -1,11 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { quantity } from '../localStorage/localStorage';
 
 class ItemCart extends React.Component {
   render() {
-    const { cartItensArray } = this.props;
-    const { title, price, thumbnail, id } = cartItensArray;
+    const { cartItensArray, decreaseItem,
+      increaseItem, removeItem, quantity } = this.props;
+    const { title, price, thumbnail, thumbnail_id } = cartItensArray;
+
     return (
       <div>
         {' '}
@@ -13,8 +14,34 @@ class ItemCart extends React.Component {
         <p>{price}</p>
         <img src={ thumbnail } alt={ title } />
         <p data-testid="shopping-cart-product-quantity">
-          {quantity(id) !== null ? quantity(id) : 1}
+          {quantity}
         </p>
+        <div>
+          <button
+            onClick={ () => { increaseItem(thumbnail_id); } }
+            data-testid="product-increase-quantity"
+            type="button"
+          >
+            +
+
+          </button>
+          <button
+            onClick={ () => { decreaseItem(thumbnail_id); } }
+            data-testid="product-decrease-quantity"
+            type="button"
+          >
+            -
+
+          </button>
+          <button
+            onClick={ () => { removeItem(thumbnail_id); } }
+            data-testid="remove-product"
+            type="button"
+          >
+            Remover
+
+          </button>
+        </div>
       </div>
     );
   }
@@ -26,7 +53,13 @@ ItemCart.propTypes = {
     price: propTypes.number,
     thumbnail: propTypes.string,
     id: propTypes.string,
+    thumbnail_id: propTypes.string,
   }).isRequired,
+  increaseItem: propTypes.func.isRequired,
+  decreaseItem: propTypes.func.isRequired,
+  removeItem: propTypes.func.isRequired,
+  quantity: propTypes.number.isRequired,
+
 };
 
 export default ItemCart;
