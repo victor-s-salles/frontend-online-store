@@ -2,10 +2,34 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 class ItemCart extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      quantidade: 1,
+    };
+  }
+
+  aumentar = () => {
+    this.setState((prevState) => ({
+      quantidade: prevState.quantidade + 1,
+    }));
+  };
+
+  diminuir = () => {
+    this.setState((prevState) => {
+      if (prevState.quantidade <= 1) {
+        return { quantidade: 1 };
+      }
+      return { quantidade: prevState.quantidade - 1 };
+    });
+  };
+
   render() {
-    const { cartItensArray, decreaseItem,
-      increaseItem, removeItem, quantity } = this.props;
-    const { title, price, thumbnail, thumbnail_id } = cartItensArray;
+    // const { decreaseItem, increaseItem, quantity, thumbnail_id } = cartItensArray;
+    const { cartItensArray,
+      removeItem } = this.props;
+    const { title, price, thumbnail } = cartItensArray;
+    const { quantidade } = this.state;
 
     return (
       <div>
@@ -14,11 +38,11 @@ class ItemCart extends React.Component {
         <p>{price}</p>
         <img src={ thumbnail } alt={ title } />
         <p data-testid="shopping-cart-product-quantity">
-          {quantity}
+          {quantidade}
         </p>
         <div>
           <button
-            onClick={ () => { increaseItem(thumbnail_id); } }
+            onClick={ () => { this.aumentar(); } }
             data-testid="product-increase-quantity"
             type="button"
           >
@@ -26,7 +50,7 @@ class ItemCart extends React.Component {
 
           </button>
           <button
-            onClick={ () => { decreaseItem(thumbnail_id); } }
+            onClick={ () => { this.diminuir(); } }
             data-testid="product-decrease-quantity"
             type="button"
           >
@@ -55,10 +79,10 @@ ItemCart.propTypes = {
     id: propTypes.string,
     thumbnail_id: propTypes.string,
   }).isRequired,
-  increaseItem: propTypes.func.isRequired,
-  decreaseItem: propTypes.func.isRequired,
+  // increaseItem: propTypes.func.isRequired,
+  // decreaseItem: propTypes.func.isRequired,
   removeItem: propTypes.func.isRequired,
-  quantity: propTypes.number.isRequired,
+  // quantity: propTypes.number.isRequired,
 
 };
 

@@ -52,7 +52,7 @@ class Principal extends React.Component {
       antes = 0;
     }
     const novo = parseInt(antes, 10) + 1;
-    localStorage.setItem(elemento, 1);
+    localStorage.setItem(elemento, novo);
     //-------------------
     console.log(elemento);
   };
@@ -84,7 +84,7 @@ class Principal extends React.Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
 
         </h3>
-        {valor ? resultadoDaBusca.results.map((ele, index) => (
+        {valor ? resultadoDaBusca.results.map((ele) => (
           <Produto
             // getCartItens={ this.getCartItens }
             objItem={ ele }

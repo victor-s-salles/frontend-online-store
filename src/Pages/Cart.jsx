@@ -1,4 +1,3 @@
-import { element } from 'prop-types';
 import React from 'react';
 // import propTypes from 'prop-types';
 import ItemCart from '../components/ItemCart';
@@ -23,22 +22,21 @@ class Cart extends React.Component {
 
   decreaseItem = (productID) => {
     let quantidade = localStorage.getItem(productID);
-    quantidade -= 1;
+    quantidade = parseInt(quantidade, 10) - 1;
     if (!quantidade < 1) {
       localStorage.setItem(productID, quantidade);
-      // this.forceUpdate();
+      this.forceUpdate();
 
-      this.setState({ teste: true });
+      // this.setState({ teste: true });
     }
   };
 
   increaseItem = (productID) => {
     let quantidade = localStorage.getItem(productID);
-    console.log(quantidade);
     quantidade = parseInt(quantidade, 10) + 1;
     localStorage.setItem(productID, quantidade);
-    // this.forceUpdate();
-    this.setState({ teste: false });
+    this.forceUpdate();
+    // this.setState({ teste: false });
   };
 
   removeItem = (productID) => {
@@ -56,8 +54,8 @@ class Cart extends React.Component {
     this.setState({
       cartArrayFiltred: listaDeItens,
     });
-    // this.forceUpdate();
-    this.setState({ teste: true });
+    this.forceUpdate();
+    // this.setState({ teste: true });
   };
 
   calcula = (productThumbnailId) => {
