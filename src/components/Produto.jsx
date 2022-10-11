@@ -33,7 +33,8 @@ class Produto extends React.Component {
           data-testid="product-add-to-cart"
           type="button"
           onClick={ () => {
-            salvarQuantidade(objItem.thumbnail_id);
+            const idQuantidade = `quantidade:${objItem.id}`;
+            salvarQuantidade(idQuantidade);
             //------------------
             const recupera = recuperaProdutos();
             if (recupera !== null) {
@@ -58,7 +59,7 @@ Produto.propTypes = {
     title: propTypes.string,
     price: propTypes.number,
     thumbnail: propTypes.string,
-    thumbnail_id: propTypes.string,
+    id: propTypes.string,
   }).isRequired,
   productId: propTypes.string.isRequired,
   salvarQuantidade: propTypes.func.isRequired,

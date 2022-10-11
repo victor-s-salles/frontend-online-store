@@ -25,10 +25,10 @@ class ItemCart extends React.Component {
   };
 
   render() {
-    // const { decreaseItem, increaseItem, quantity, thumbnail_id } = cartItensArray;
+    // const { decreaseItem, increaseItem, quantity, thumbnail_id} =
     const { cartItensArray,
       removeItem } = this.props;
-    const { title, price, thumbnail } = cartItensArray;
+    const { title, price, thumbnail, id } = cartItensArray;
     const { quantidade } = this.state;
 
     return (
@@ -58,7 +58,7 @@ class ItemCart extends React.Component {
 
           </button>
           <button
-            onClick={ () => { removeItem(thumbnail_id); } }
+            onClick={ () => { removeItem(id); } }
             data-testid="remove-product"
             type="button"
           >

@@ -24,8 +24,12 @@ class ProdutoDetalhado extends React.Component {
 
   onClickButton = () => {
     const { product } = this.state;
-    console.log(product[0].thumbnail_id);
-    this.salvarQuantidade(product[0].thumbnail_id);
+
+    const idQuantidade = `quantidade:${product[0].id}`;
+    this.salvarQuantidade(idQuantidade);
+
+    // console.log(product[0].thumbnail_id);
+    // this.salvarQuantidade(product[0].thumbnail_id);
 
     const produto = product;
     const produtos = recuperaProdutos();
