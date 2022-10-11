@@ -5,8 +5,7 @@ import { getProductById } from '../services/api';
 import FormComentarios from './FormComentarios';
 import {
   SalvaProduto,
-  recuperaProdutos,
-  filtraOsProdutos } from '../localStorage/localStorage';
+  recuperaProdutos } from '../localStorage/localStorage';
 
 class ProdutoDetalhado extends React.Component {
   constructor() {
@@ -27,20 +26,24 @@ class ProdutoDetalhado extends React.Component {
 
   onClickButton = () => {
     const { product } = this.state;
+
+    const idQuantidade = `quantidade:${product[0].id}`;
+    this.salvarQuantidade(idQuantidade);
+
+    // console.log(product[0].thumbnail_id);
+    // this.salvarQuantidade(product[0].thumbnail_id);
+
     const produto = product;
     const produtos = recuperaProdutos();
     if (produtos !== null) {
       const [produtoObj] = produto;
-      produtos.unshift(produtoObj);
+      produtos.push(produtoObj);
       this.setState({
         produtosSalvos: produtos,
       }, () => {
         const { produtosSalvos } = this.state;
         console.log(produtosSalvos);
         SalvaProduto(produtosSalvos);
-        const productlength = produtosSalvos
-          .filter((ele) => ele.id === produtosSalvos[0].id).length;
-        filtraOsProdutos(produtosSalvos[0].id, productlength);
       });
     } else {
       this.setState({
@@ -50,6 +53,16 @@ class ProdutoDetalhado extends React.Component {
         SalvaProduto(produtosSalvos);
       });
     }
+  };
+
+  salvarQuantidade = (elemento) => {
+    let antes = localStorage.getItem(elemento);
+    if (antes === null) {
+      antes = 0;
+    }
+    // const novo = parseInt(antes, 10) + 1;
+    localStorage.setItem(elemento, 1);
+    //---------------------
   };
 
   render() {

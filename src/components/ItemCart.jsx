@@ -1,11 +1,36 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { quantity } from '../localStorage/localStorage';
 
 class ItemCart extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      quantidade: 1,
+    };
+  }
+
+  aumentar = () => {
+    this.setState((prevState) => ({
+      quantidade: prevState.quantidade + 1,
+    }));
+  };
+
+  diminuir = () => {
+    this.setState((prevState) => {
+      if (prevState.quantidade <= 1) {
+        return { quantidade: 1 };
+      }
+      return { quantidade: prevState.quantidade - 1 };
+    });
+  };
+
   render() {
-    const { cartItensArray } = this.props;
+    // const { decreaseItem, increaseItem, quantity, thumbnail_id} =
+    const { cartItensArray,
+      removeItem } = this.props;
     const { title, price, thumbnail, id } = cartItensArray;
+    const { quantidade } = this.state;
+
     return (
       <div>
         {' '}
@@ -13,8 +38,34 @@ class ItemCart extends React.Component {
         <p>{price}</p>
         <img src={ thumbnail } alt={ title } />
         <p data-testid="shopping-cart-product-quantity">
-          {quantity(id) !== null ? quantity(id) : 1}
+          {quantidade}
         </p>
+        <div>
+          <button
+            onClick={ () => { this.aumentar(); } }
+            data-testid="product-increase-quantity"
+            type="button"
+          >
+            +
+
+          </button>
+          <button
+            onClick={ () => { this.diminuir(); } }
+            data-testid="product-decrease-quantity"
+            type="button"
+          >
+            -
+
+          </button>
+          <button
+            onClick={ () => { removeItem(id); } }
+            data-testid="remove-product"
+            type="button"
+          >
+            Remover
+
+          </button>
+        </div>
       </div>
     );
   }
@@ -26,7 +77,13 @@ ItemCart.propTypes = {
     price: propTypes.number,
     thumbnail: propTypes.string,
     id: propTypes.string,
+    thumbnail_id: propTypes.string,
   }).isRequired,
+  // increaseItem: propTypes.func.isRequired,
+  // decreaseItem: propTypes.func.isRequired,
+  removeItem: propTypes.func.isRequired,
+  // quantity: propTypes.number.isRequired,
+
 };
 
 export default ItemCart;

@@ -2,7 +2,6 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
-  filtraOsProdutos,
   recuperaProdutos,
   SalvaProduto } from '../localStorage/localStorage';
 
@@ -20,7 +19,8 @@ class Produto extends React.Component {
   }
 
   render() {
-    const { productName, productPrice, productImage, productId } = this.props;
+    const { productName, productPrice,
+      productImage, productId, salvarQuantidade, objItem } = this.props;
     const { productArray } = this.state;
     return (
       <div data-testid="product">
@@ -33,13 +33,13 @@ class Produto extends React.Component {
           data-testid="product-add-to-cart"
           type="button"
           onClick={ () => {
+            const idQuantidade = `quantidade:${objItem.id}`;
+            salvarQuantidade(idQuantidade);
+            //------------------
             const recupera = recuperaProdutos();
             if (recupera !== null) {
-              recupera.unshift(productArray);
+              recupera.push(productArray);
               SalvaProduto(recupera);
-              const productlength = recupera
-                .filter((ele) => ele.id === recupera[0].id).length;
-              filtraOsProdutos(recupera[0].id, productlength);
             } else SalvaProduto([productArray]);
           } }
         >
@@ -59,8 +59,10 @@ Produto.propTypes = {
     title: propTypes.string,
     price: propTypes.number,
     thumbnail: propTypes.string,
+    id: propTypes.string,
   }).isRequired,
   productId: propTypes.string.isRequired,
+  salvarQuantidade: propTypes.func.isRequired,
 };
 
 export default Produto;
