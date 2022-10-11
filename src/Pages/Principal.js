@@ -46,6 +46,17 @@ class Principal extends React.Component {
     });
   };
 
+  salvarQuantidade = (elemento) => {
+    let antes = localStorage.getItem(elemento);
+    if (antes === null) {
+      antes = 0;
+    }
+    const novo = parseInt(antes, 10) + 1;
+    localStorage.setItem(elemento, novo);
+    //-------------------
+    console.log(elemento);
+  };
+
   render() {
     const { campoDeBusca, valor, resultadoDaBusca } = this.state;
     return (
@@ -73,15 +84,16 @@ class Principal extends React.Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
 
         </h3>
-        {valor ? resultadoDaBusca.results.map((ele, index) => (
+        {valor ? resultadoDaBusca.results.map((ele) => (
           <Produto
             // getCartItens={ this.getCartItens }
             objItem={ ele }
-            key={ index }
+            key={ ele.title }
             productName={ ele.title }
             productPrice={ ele.price }
             productImage={ ele.thumbnail }
             productId={ ele.id }
+            salvarQuantidade={ this.salvarQuantidade }
           />)) : <p>Nenhum produto foi encontrado</p> }
         <Link to="/cart" data-testid="shopping-cart-button">Cart</Link>
       </div>

@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { getProductById } from '../services/api';
+import FormComentarios from './FormComentarios';
 import {
   SalvaProduto,
-  recuperaProdutos,
-  filtraOsProdutos } from '../localStorage/localStorage';
+  recuperaProdutos } from '../localStorage/localStorage';
 
 class ProdutoDetalhado extends React.Component {
   constructor() {
@@ -14,31 +14,36 @@ class ProdutoDetalhado extends React.Component {
       product: [],
       loading: true,
       produtosSalvos: [],
+      id: '',
     };
   }
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const produtoDetalhado = await getProductById(id);
-    this.setState({ product: [produtoDetalhado], loading: false });
+    this.setState({ product: [produtoDetalhado], loading: false, id });
   }
 
   onClickButton = () => {
     const { product } = this.state;
+
+    const idQuantidade = `quantidade:${product[0].id}`;
+    this.salvarQuantidade(idQuantidade);
+
+    // console.log(product[0].thumbnail_id);
+    // this.salvarQuantidade(product[0].thumbnail_id);
+
     const produto = product;
     const produtos = recuperaProdutos();
     if (produtos !== null) {
       const [produtoObj] = produto;
-      produtos.unshift(produtoObj);
+      produtos.push(produtoObj);
       this.setState({
         produtosSalvos: produtos,
       }, () => {
         const { produtosSalvos } = this.state;
         console.log(produtosSalvos);
         SalvaProduto(produtosSalvos);
-        const productlength = produtosSalvos
-          .filter((ele) => ele.id === produtosSalvos[0].id).length;
-        filtraOsProdutos(produtosSalvos[0].id, productlength);
       });
     } else {
       this.setState({
@@ -50,8 +55,18 @@ class ProdutoDetalhado extends React.Component {
     }
   };
 
+  salvarQuantidade = (elemento) => {
+    let antes = localStorage.getItem(elemento);
+    if (antes === null) {
+      antes = 0;
+    }
+    // const novo = parseInt(antes, 10) + 1;
+    localStorage.setItem(elemento, 1);
+    //---------------------
+  };
+
   render() {
-    const { product, loading } = this.state;
+    const { product, loading, id } = this.state;
     return (
       <div>
         {loading ? <p>Carregando...</p>
@@ -72,6 +87,7 @@ class ProdutoDetalhado extends React.Component {
               >
                 Add Cart
               </button>
+              <FormComentarios productId={ id } />
             </div>
           ))}
         <Link to="/cart" data-testid="shopping-cart-button">Cart</Link>
