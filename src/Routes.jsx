@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import Principal from './Pages/Principal';
 import Cart from './Pages/Cart';
 import ProdutoDetalhado from './components/ProdutoDetalhado';
+import Checkout from './Pages/Checkout';
 // import { recuperaProdutos } from './localStorage/localStorage';
 
 class Router extends React.Component {
@@ -27,6 +28,10 @@ class Router extends React.Component {
         <Route
           path="/cart"
           render={ () => (<Cart />) }
+        />
+        <Route
+          path="/checkout"
+          component={ Checkout }
         />
         <Route path="/produtoDetalhado/:id" component={ ProdutoDetalhado } />
 

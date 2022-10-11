@@ -1,5 +1,6 @@
 import React from 'react';
 // import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ItemCart from '../components/ItemCart';
 import { recuperaProdutos } from '../localStorage/localStorage';
 
@@ -36,6 +37,7 @@ class Cart extends React.Component {
           && cartArray.map((item, index) => (
             <ItemCart key={ index } cartItensArray={ item } />
           ))}
+        <Link to="/checkout" data-testid="checkout-products">Checkout</Link>
       </div>
     );
   }
