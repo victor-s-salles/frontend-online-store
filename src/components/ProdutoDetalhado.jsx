@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { getProductById } from '../services/api';
+import FormComentarios from './FormComentarios';
 import {
   SalvaProduto,
   recuperaProdutos,
@@ -14,13 +15,14 @@ class ProdutoDetalhado extends React.Component {
       product: [],
       loading: true,
       produtosSalvos: [],
+      id: '',
     };
   }
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const produtoDetalhado = await getProductById(id);
-    this.setState({ product: [produtoDetalhado], loading: false });
+    this.setState({ product: [produtoDetalhado], loading: false, id });
   }
 
   onClickButton = () => {
@@ -51,7 +53,7 @@ class ProdutoDetalhado extends React.Component {
   };
 
   render() {
-    const { product, loading } = this.state;
+    const { product, loading, id } = this.state;
     return (
       <div>
         {loading ? <p>Carregando...</p>
@@ -72,6 +74,7 @@ class ProdutoDetalhado extends React.Component {
               >
                 Add Cart
               </button>
+              <FormComentarios productId={ id } />
             </div>
           ))}
         <Link to="/cart" data-testid="shopping-cart-button">Cart</Link>
