@@ -93,6 +93,7 @@ class Principal extends React.Component {
             productPrice={ ele.price }
             productImage={ ele.thumbnail }
             productId={ ele.id }
+            freeShipping={ ele.shipping.free_shipping }
             salvarQuantidade={ this.salvarQuantidade }
           />)) : <p>Nenhum produto foi encontrado</p> }
         <Link to="/cart" data-testid="shopping-cart-button">Cart</Link>

@@ -20,8 +20,9 @@ class Produto extends React.Component {
 
   render() {
     const { productName, productPrice,
-      productImage, productId, salvarQuantidade, objItem } = this.props;
+      productImage, productId, salvarQuantidade, freeShipping, objItem } = this.props;
     const { productArray } = this.state;
+
     return (
       <div data-testid="product">
         <Link to={ `/produtoDetalhado/${productId}` } data-testid="product-detail-link">
@@ -29,6 +30,7 @@ class Produto extends React.Component {
           <p>{ productPrice }</p>
           <img src={ productImage } alt={ productName } />
         </Link>
+        <div>{freeShipping && <h4 data-testid="free-shipping">Frete Grátis</h4>}</div>
         <button
           data-testid="product-add-to-cart"
           type="button"
@@ -55,6 +57,7 @@ Produto.propTypes = {
   productName: propTypes.string.isRequired,
   productPrice: propTypes.number.isRequired,
   productImage: propTypes.string.isRequired,
+  freeShipping: propTypes.bool.isRequired,
   objItem: propTypes.shape({
     title: propTypes.string,
     price: propTypes.number,
