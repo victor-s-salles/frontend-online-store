@@ -15,6 +15,10 @@ class Principal extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.calculaTotal();
+  }
+
   onChange = ({ target }) => {
     const { name, value } = target;
     this.setState({
@@ -80,23 +84,33 @@ class Principal extends React.Component {
     const { campoDeBusca, valor, resultadoDaBusca, quantidadeCarrinho } = this.state;
     return (
       <div>
-        <div>
-          <input
-            value={ campoDeBusca }
-            onChange={ this.onChange }
-            name="campoDeBusca"
-            type="text"
-            data-testid="query-input"
-          />
-          <button
-            type="button"
-            data-testid="query-button"
-            onClick={ this.handleClick }
-          >
-            Pesquisar
-          </button>
-        </div>
+        <header>
+          <div>
+
+            <input
+              value={ campoDeBusca }
+              onChange={ this.onChange }
+              name="campoDeBusca"
+              type="text"
+              data-testid="query-input"
+            />
+            <button
+              type="button"
+              data-testid="query-button"
+              onClick={ this.handleClick }
+            >
+              Pesquisar
+            </button>
+          </div>
+          <Link to="/cart" data-testid="shopping-cart-button">
+            <div>
+              <p>Cart</p>
+              <p data-testid="shopping-cart-size">{quantidadeCarrinho}</p>
+            </div>
+          </Link>
+        </header>
         <Categories getProducts={ this.getCategorieProducts } />
+
         <h3
           data-testid="home-initial-message"
         >
@@ -116,12 +130,6 @@ class Principal extends React.Component {
             salvarQuantidade={ this.salvarQuantidade }
           />)) : <p>Nenhum produto foi encontrado</p> }
 
-        <Link to="/cart" data-testid="shopping-cart-button">
-          <div>
-            <p>Cart</p>
-            <p data-testid="shopping-cart-size">{quantidadeCarrinho}</p>
-          </div>
-        </Link>
       </div>
     );
   }

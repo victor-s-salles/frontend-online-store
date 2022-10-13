@@ -42,7 +42,7 @@ class Cart extends React.Component {
 
   removeItem = (productID) => {
     // const productID = `quantidade:${id}`;
-    localStorage.removeItem(productID);
+    localStorage.removeItem(`quantidade:${productID}`);
     const listaDeItens = JSON.parse(localStorage.getItem('productFiltred'));
     const itemRemoved = listaDeItens.find((item) => (item.id === productID));
     const index = listaDeItens.indexOf(itemRemoved);
