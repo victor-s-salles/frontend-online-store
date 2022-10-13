@@ -22,18 +22,24 @@ class ItemCart extends React.Component {
     const { cartItensArray } = this.props;
     const { quantidade } = this.state;
     this.setState((prevState) => ({ quantidade: prevState.quantidade + 1 }));
+
     if (cartItensArray.available_quantity <= (quantidade + 1)) {
       this.setState({ btnDisabled: true });
-    } else { this.setState({ btnDisabled: false }); }
+    }
   };
 
   diminuir = () => {
+    const { cartItensArray } = this.props;
+    const { quantidade } = this.state;
     this.setState((prevState) => {
       if (prevState.quantidade <= 1) {
         return { quantidade: 1 };
       }
       return { quantidade: prevState.quantidade - 1 };
     });
+    if (cartItensArray.available_quantity > (quantidade - 1)) {
+      this.setState({ btnDisabled: false });
+    }
   };
 
   render() {
