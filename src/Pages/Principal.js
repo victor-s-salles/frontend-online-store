@@ -60,20 +60,21 @@ class Principal extends React.Component {
 
   calculaTotal = () => {
     const listaDeItens = JSON.parse(localStorage.getItem('product'));
-
-    const setArray = new Set();
-    const filtredArray = listaDeItens.filter((item) => {
-      const duplicatedItem = setArray.has(item.id);
-      setArray.add(item.id);
-      return !duplicatedItem;
-    });
-    const ids = filtredArray.map((item) => item.id);
-    const soma = ids.reduce((acc, numero) => {
-      const quantidade = localStorage.getItem(`quantidade:${numero}`);
-      acc += Number(quantidade);
-      return acc;
-    }, 0);
-    this.setState({ quantidadeCarrinho: soma });
+    if (listaDeItens != null) {
+      const setArray = new Set();
+      const filtredArray = listaDeItens.filter((item) => {
+        const duplicatedItem = setArray.has(item.id);
+        setArray.add(item.id);
+        return !duplicatedItem;
+      });
+      const ids = filtredArray.map((item) => item.id);
+      const soma = ids.reduce((acc, numero) => {
+        const quantidade = localStorage.getItem(`quantidade:${numero}`);
+        acc += Number(quantidade);
+        return acc;
+      }, 0);
+      this.setState({ quantidadeCarrinho: soma });
+    }
   };
 
   render() {
