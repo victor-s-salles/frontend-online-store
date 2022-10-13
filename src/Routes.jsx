@@ -23,11 +23,11 @@ class Router extends React.Component {
         <Route
           exact
           path="/"
-          render={ () => (<Principal />) }
+          component={ Principal }
         />
         <Route
           path="/cart"
-          render={ () => (<Cart />) }
+          component={ Cart }
         />
         <Route
           path="/checkout"
