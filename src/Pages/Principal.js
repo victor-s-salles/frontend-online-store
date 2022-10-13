@@ -15,6 +15,10 @@ class Principal extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.calculaTotal();
+  }
+
   onChange = ({ target }) => {
     const { name, value } = target;
     this.setState({
