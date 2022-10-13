@@ -42,11 +42,8 @@ class Cart extends React.Component {
 
   removeItem = (productID) => {
     // const productID = `quantidade:${id}`;
-    console.log(productID);
     localStorage.removeItem(productID);
-
     const listaDeItens = JSON.parse(localStorage.getItem('productFiltred'));
-    console.log(listaDeItens);
     const itemRemoved = listaDeItens.find((item) => (item.id === productID));
     const index = listaDeItens.indexOf(itemRemoved);
     listaDeItens.splice(index, 1);
@@ -69,7 +66,6 @@ class Cart extends React.Component {
     const { cartArray } = this.state;
 
     const setArray = new Set();
-    console.log(setArray);
     const filtredArray = cartArray.filter((item) => {
       const duplicatedItem = setArray.has(item.id);
       setArray.add(item.id);
