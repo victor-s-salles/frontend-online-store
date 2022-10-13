@@ -3,15 +3,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ItemCart from '../components/ItemCart';
 import { recuperaProdutos } from '../localStorage/localStorage';
+import arroyBack from '../CSS/images/icon _arrow back_.png';
+import logo from '../CSS/images/logo.png';
 
 class Cart extends React.Component {
   constructor() {
     super();
-    this.state = { temAlgo: false, cartArray: [], cartArrayFiltred: [] };
+    this.state = { temAlgo: false, cartArray: [], cartArrayFiltred: [], total: 0 };
   }
 
   componentDidMount() {
     this.validadeItens();
+    this.calculaTotaldoCarrinho();
   }
 
   validadeItens = () => {
@@ -37,7 +40,6 @@ class Cart extends React.Component {
     quantidade = parseInt(quantidade, 10) + 1;
     localStorage.setItem(productID, quantidade);
     this.forceUpdate();
-    // this.setState({ teste: false });
   };
 
   removeItem = (productID) => {
@@ -52,7 +54,7 @@ class Cart extends React.Component {
     localStorage.setItem('product', JSON.stringify(listaDeItens));
     this.setState({
       cartArrayFiltred: listaDeItens,
-    });
+    }, this.calculaTotaldoCarrinho);
     this.forceUpdate();
     // this.setState({ teste: true });
   };
@@ -60,6 +62,25 @@ class Cart extends React.Component {
   calcula = (productThumbnailId) => {
     const quantidade = localStorage.getItem(productThumbnailId);
     return quantidade;
+  };
+
+  calculaTotaldoCarrinho = () => {
+    const { cartArrayFiltred } = this.state;
+    setTimeout(() => {
+      if (cartArrayFiltred.length !== 0) {
+        const soma = cartArrayFiltred.reduce((acc, item) => {
+          const quantidade = localStorage.getItem(`quantidade:${item.id}`);
+          const sum = Number(quantidade) * item.price;
+          acc += sum;
+          return acc;
+        }, 0);
+
+        this.setState({ total: soma });
+      }
+    }, 100);
+    if (cartArrayFiltred.length === 0) {
+      this.setState({ total: 0 });
+    }
   };
 
   removeDuplicates = () => {
@@ -73,23 +94,35 @@ class Cart extends React.Component {
     });
     this.setState({
       cartArrayFiltred: filtredArray,
-    });
+    }, this.calculaTotaldoCarrinho);
     localStorage.setItem('productFiltred', JSON.stringify(filtredArray));
     localStorage.setItem('product', JSON.stringify(filtredArray));
   };
 
   render() {
-    const { temAlgo, cartArrayFiltred } = this.state;
+    const { temAlgo, cartArrayFiltred, total } = this.state;
     return (
       <div>
-        {!temAlgo && (
-          <p data-testid="shopping-cart-empty-message">
-            Seu carrinho está vazio
-          </p>
-        )}
-        {temAlgo
+        <header className="Cart-Header"><img src={ logo } alt="" /></header>
+        <Link
+          to="/"
+          className="CartLinkBack"
+        >
+          <img src={ arroyBack } alt="" />
+          <h4>Voltar</h4>
+        </Link>
+        <div className="CartSecondaryDiv">
+          {!temAlgo && (
+            <p data-testid="shopping-cart-empty-message">
+              Seu carrinho está vazio
+            </p>
+          )}
+          <div className="Cart-CartItensDiv">
+            <h1 className="Cart-Title">Carrinho de Compras</h1>
+            {temAlgo
           && cartArrayFiltred.map((item, index) => (
             <ItemCart
+              calculaTotaldoCarrinho={ this.calculaTotaldoCarrinho }
               decreaseItem={ this.decreaseItem }
               increaseItem={ this.increaseItem }
               removeItem={ this.removeItem }
@@ -98,7 +131,26 @@ class Cart extends React.Component {
               cartItensArray={ item }
             />
           ))}
-        <Link to="/checkout" data-testid="checkout-products">Checkout</Link>
+
+          </div>
+
+          <div className="CartTotalDiv">
+            <div className="CartSomaTotal">
+              <h1>Valor total da compra:</h1>
+              <h3>
+                {total.toLocaleString(
+                  'pt-br',
+                  { style: 'currency', currency: 'BRL' },
+                )}
+
+              </h3>
+            </div>
+            <Link to="/checkout" data-testid="checkout-products">
+              <button className="CartFinishBtn" type="button">Finalizar Compra</button>
+
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }

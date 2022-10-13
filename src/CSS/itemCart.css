@@ -1,0 +1,52 @@
+.ItemCartDivPrincipal {
+  border-top: 1px solid #94979d;
+  display: flex;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.ItemCartDivButtons {
+  align-items: center;
+
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: center;
+  min-width: 10%;
+}
+
+.ItemCartDivButtons button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  height: 25px;
+  margin: 4px;
+}
+
+.ItemCartDivPrice {
+  align-items: center;
+
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: center;
+  min-width: 10%;
+}
+
+.ItemCartTitleDiv {
+
+  /* border: 1px solid black; */
+  margin-left: 10px;
+  width: 310px;
+}
+
+.ItemCartDivRemoveButton {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 20px;
+}
+
+.ItemCartDivRemoveButton button {
+  background: none;
+  border: none;
+  font-size: 14px;
+}
