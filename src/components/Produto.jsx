@@ -36,7 +36,6 @@ class Produto extends React.Component {
           type="button"
           onClick={ () => {
             const idQuantidade = `quantidade:${objItem.id}`;
-
             //------------------
             const recupera = recuperaProdutos();
             if (recupera !== null) {

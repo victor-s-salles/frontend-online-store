@@ -7,14 +7,14 @@ class ItemCart extends React.Component {
     this.state = {
       quantidade: 1,
       btnDisabled: false,
+      btnNegative: false,
     };
   }
 
   componentDidMount() {
     const { cartItensArray } = this.props;
-    const { quantidade } = this.state;
-    if (cartItensArray.available_quantity === (quantidade)) {
-      this.setState({ btnDisabled: true });
+    if (cartItensArray.available_quantity === 1) {
+      this.setState({ btnDisabled: true, btnNegative: true });
     } else { this.setState({ btnDisabled: false }); }
     this.recuperarQuantidade();
   }
@@ -67,7 +67,7 @@ class ItemCart extends React.Component {
   render() {
     const { cartItensArray, removeItem } = this.props;
     const { title, price, thumbnail, id } = cartItensArray;
-    const { quantidade, btnDisabled } = this.state;
+    const { quantidade, btnDisabled, btnNegative } = this.state;
 
     return (
       <div>
@@ -92,6 +92,7 @@ class ItemCart extends React.Component {
             onClick={ () => { this.diminuir(); } }
             data-testid="product-decrease-quantity"
             type="button"
+            disabled={ btnNegative }
           >
             -
 
