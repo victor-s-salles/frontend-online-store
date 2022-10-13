@@ -16,12 +16,26 @@ class ItemCart extends React.Component {
     if (cartItensArray.available_quantity === (quantidade)) {
       this.setState({ btnDisabled: true });
     } else { this.setState({ btnDisabled: false }); }
+    this.recuperarQuantidade();
   }
+
+  recuperarQuantidade = () => {
+    const { cartItensArray } = this.props;
+    const { id } = cartItensArray;
+
+    const quantidade = localStorage.getItem(`quantidade:${id}`);
+    if (quantidade != null) {
+      this.setState({ quantidade: Number(quantidade) });
+    }
+  };
 
   aumentar = () => {
     const { cartItensArray } = this.props;
     const { quantidade } = this.state;
-    this.setState((prevState) => ({ quantidade: prevState.quantidade + 1 }));
+    this.setState(
+      (prevState) => ({ quantidade: prevState.quantidade + 1 }),
+      this.salvarLocalStorage,
+    );
 
     if (cartItensArray.available_quantity <= (quantidade + 1)) {
       this.setState({ btnDisabled: true });
@@ -36,10 +50,18 @@ class ItemCart extends React.Component {
         return { quantidade: 1 };
       }
       return { quantidade: prevState.quantidade - 1 };
-    });
+    }, this.salvarLocalStorage);
     if (cartItensArray.available_quantity > (quantidade - 1)) {
       this.setState({ btnDisabled: false });
     }
+  };
+
+  salvarLocalStorage = () => {
+    const { quantidade } = this.state;
+    const { cartItensArray } = this.props;
+    const { id } = cartItensArray;
+
+    localStorage.setItem(`quantidade:${id}`, Number(quantidade));
   };
 
   render() {

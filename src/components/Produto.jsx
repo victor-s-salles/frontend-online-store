@@ -36,13 +36,14 @@ class Produto extends React.Component {
           type="button"
           onClick={ () => {
             const idQuantidade = `quantidade:${objItem.id}`;
-            salvarQuantidade(idQuantidade);
+
             //------------------
             const recupera = recuperaProdutos();
             if (recupera !== null) {
               recupera.push(productArray);
               SalvaProduto(recupera);
             } else SalvaProduto([productArray]);
+            salvarQuantidade(idQuantidade);
           } }
         >
           Adicionar ao carrinho

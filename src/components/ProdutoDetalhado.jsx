@@ -22,6 +22,7 @@ class ProdutoDetalhado extends React.Component {
     const { match: { params: { id } } } = this.props;
     const produtoDetalhado = await getProductById(id);
     this.setState({ product: [produtoDetalhado], loading: false, id });
+    this.calculaTotal();
   }
 
   onClickButton = () => {
@@ -60,13 +61,32 @@ class ProdutoDetalhado extends React.Component {
     if (antes === null) {
       antes = 0;
     }
-    // const novo = parseInt(antes, 10) + 1;
-    localStorage.setItem(elemento, 1);
+    const novo = parseInt(antes, 10) + 1;
+    localStorage.setItem(elemento, novo);
     //---------------------
+    this.calculaTotal();
+  };
+
+  calculaTotal = () => {
+    const listaDeItens = JSON.parse(localStorage.getItem('product'));
+
+    const setArray = new Set();
+    const filtredArray = listaDeItens.filter((item) => {
+      const duplicatedItem = setArray.has(item.id);
+      setArray.add(item.id);
+      return !duplicatedItem;
+    });
+    const ids = filtredArray.map((item) => item.id);
+    const soma = ids.reduce((acc, numero) => {
+      const quantidade = localStorage.getItem(`quantidade:${numero}`);
+      acc += Number(quantidade);
+      return acc;
+    }, 0);
+    this.setState({ quantidadeCarrinho: soma });
   };
 
   render() {
-    const { product, loading, id } = this.state;
+    const { product, loading, id, quantidadeCarrinho } = this.state;
     return (
       <div>
         {loading ? <p>Carregando...</p>
@@ -95,7 +115,12 @@ class ProdutoDetalhado extends React.Component {
               <FormComentarios productId={ id } />
             </div>
           ))}
-        <Link to="/cart" data-testid="shopping-cart-button">Cart</Link>
+        <Link to="/cart" data-testid="shopping-cart-button">
+          <div>
+            <p>Cart</p>
+            <p data-testid="shopping-cart-size">{quantidadeCarrinho}</p>
+          </div>
+        </Link>
       </div>
     );
   }

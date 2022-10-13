@@ -69,7 +69,6 @@ class Cart extends React.Component {
     const { cartArray } = this.state;
 
     const setArray = new Set();
-    console.log(setArray);
     const filtredArray = cartArray.filter((item) => {
       const duplicatedItem = setArray.has(item.id);
       setArray.add(item.id);

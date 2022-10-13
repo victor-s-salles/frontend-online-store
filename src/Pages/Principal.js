@@ -11,7 +11,7 @@ class Principal extends React.Component {
       campoDeBusca: '',
       valor: false,
       resultadoDaBusca: {},
-
+      quantidadeCarrinho: 0,
     };
   }
 
@@ -55,10 +55,29 @@ class Principal extends React.Component {
     localStorage.setItem(elemento, novo);
     //-------------------
     console.log(elemento);
+    this.calculaTotal();
+  };
+
+  calculaTotal = () => {
+    const listaDeItens = JSON.parse(localStorage.getItem('product'));
+
+    const setArray = new Set();
+    const filtredArray = listaDeItens.filter((item) => {
+      const duplicatedItem = setArray.has(item.id);
+      setArray.add(item.id);
+      return !duplicatedItem;
+    });
+    const ids = filtredArray.map((item) => item.id);
+    const soma = ids.reduce((acc, numero) => {
+      const quantidade = localStorage.getItem(`quantidade:${numero}`);
+      acc += Number(quantidade);
+      return acc;
+    }, 0);
+    this.setState({ quantidadeCarrinho: soma });
   };
 
   render() {
-    const { campoDeBusca, valor, resultadoDaBusca } = this.state;
+    const { campoDeBusca, valor, resultadoDaBusca, quantidadeCarrinho } = this.state;
     return (
       <div>
         <div>
@@ -96,7 +115,13 @@ class Principal extends React.Component {
             freeShipping={ ele.shipping.free_shipping }
             salvarQuantidade={ this.salvarQuantidade }
           />)) : <p>Nenhum produto foi encontrado</p> }
-        <Link to="/cart" data-testid="shopping-cart-button">Cart</Link>
+
+        <Link to="/cart" data-testid="shopping-cart-button">
+          <div>
+            <p>Cart</p>
+            <p data-testid="shopping-cart-size">{quantidadeCarrinho}</p>
+          </div>
+        </Link>
       </div>
     );
   }
