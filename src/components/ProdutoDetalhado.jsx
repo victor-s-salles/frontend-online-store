@@ -43,7 +43,6 @@ class ProdutoDetalhado extends React.Component {
         produtosSalvos: produtos,
       }, () => {
         const { produtosSalvos } = this.state;
-        console.log(produtosSalvos);
         SalvaProduto(produtosSalvos);
       });
     } else {

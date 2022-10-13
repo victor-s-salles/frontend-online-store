@@ -54,7 +54,6 @@ class Principal extends React.Component {
     const novo = parseInt(antes, 10) + 1;
     localStorage.setItem(elemento, novo);
     //-------------------
-    console.log(elemento);
     this.calculaTotal();
   };
 
