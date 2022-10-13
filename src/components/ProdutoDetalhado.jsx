@@ -79,6 +79,11 @@ class ProdutoDetalhado extends React.Component {
                 alt={ element.title }
                 data-testid="product-detail-image"
               />
+              <div>
+                {element.shipping.free_shipping
+              && <h4 data-testid="free-shipping">Frete Grátis</h4>}
+
+              </div>
               <button
                 name="Add Cart"
                 type="button"
