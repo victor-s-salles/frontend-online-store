@@ -30,7 +30,7 @@ class ItemCart extends React.Component {
   };
 
   aumentar = () => {
-    const { cartItensArray } = this.props;
+    const { cartItensArray, calculaTotaldoCarrinho } = this.props;
     const { quantidade } = this.state;
     this.setState(
       (prevState) => ({ quantidade: prevState.quantidade + 1 }),
@@ -40,10 +40,11 @@ class ItemCart extends React.Component {
     if (cartItensArray.available_quantity <= (quantidade + 1)) {
       this.setState({ btnDisabled: true });
     }
+    calculaTotaldoCarrinho();
   };
 
   diminuir = () => {
-    const { cartItensArray } = this.props;
+    const { cartItensArray, calculaTotaldoCarrinho } = this.props;
     const { quantidade } = this.state;
     this.setState((prevState) => {
       if (prevState.quantidade <= 1) {
@@ -54,6 +55,7 @@ class ItemCart extends React.Component {
     if (cartItensArray.available_quantity > (quantidade - 1)) {
       this.setState({ btnDisabled: false });
     }
+    calculaTotaldoCarrinho();
   };
 
   salvarLocalStorage = () => {
@@ -70,24 +72,25 @@ class ItemCart extends React.Component {
     const { quantidade, btnDisabled, btnNegative } = this.state;
 
     return (
-      <div>
-        {' '}
-        <p data-testid="shopping-cart-product-name">{title}</p>
-        <p>{price}</p>
-        <img src={ thumbnail } alt={ title } />
-        <p data-testid="shopping-cart-product-quantity">
-          {quantidade}
-        </p>
-        <div>
+      <div className="ItemCartDivPrincipal">
+        <div className="ItemCartDivRemoveButton">
           <button
-            onClick={ () => { this.aumentar(); } }
-            data-testid="product-increase-quantity"
+            onClick={ () => { removeItem(id); } }
+            data-testid="remove-product"
             type="button"
-            disabled={ btnDisabled }
+
           >
-            +
+            X
 
           </button>
+        </div>
+        <img src={ thumbnail } alt={ title } />
+        <div className="ItemCartTitleDiv">
+          <p data-testid="shopping-cart-product-name">{title}</p>
+        </div>
+
+        <div className="ItemCartDivButtons">
+
           <button
             onClick={ () => { this.diminuir(); } }
             data-testid="product-decrease-quantity"
@@ -97,14 +100,29 @@ class ItemCart extends React.Component {
             -
 
           </button>
+          <p data-testid="shopping-cart-product-quantity">
+            {quantidade}
+
+          </p>
           <button
-            onClick={ () => { removeItem(id); } }
-            data-testid="remove-product"
+            onClick={ () => { this.aumentar(); } }
+            data-testid="product-increase-quantity"
             type="button"
+            disabled={ btnDisabled }
           >
-            Remover
+            +
 
           </button>
+
+        </div>
+        <div className="ItemCartDivPrice">
+          <p>
+            {`${price.toLocaleString(
+              'pt-br',
+              { style: 'currency', currency: 'BRL' },
+            )}`}
+
+          </p>
         </div>
       </div>
     );
@@ -123,6 +141,7 @@ ItemCart.propTypes = {
   // increaseItem: propTypes.func.isRequired,
   // decreaseItem: propTypes.func.isRequired,
   removeItem: propTypes.func.isRequired,
+  calculaTotaldoCarrinho: propTypes.func.isRequired,
   // quantity: propTypes.number.isRequired,
 
 };
