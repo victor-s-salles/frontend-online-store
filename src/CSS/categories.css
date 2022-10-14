@@ -1,0 +1,24 @@
+.categories {
+  background-color: rgb(42, 43, 46);
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.categories h1 {
+  text-align: center;
+}
+
+.categorieButton {
+  background-color: rgb(42, 43, 46);
+  border: none;
+  color: white;
+  padding: 20px;
+}
+
+.categorieButton:hover {
+  font-size: 1.1rem;
+  text-shadow: 0 0 8px rgb(207, 207, 207);
+  transition: font-size 0.5s;
+  width: auto;
+}

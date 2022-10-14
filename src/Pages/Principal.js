@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaShoppingCart } from 'react-icons/fa';
+import { CgSearch } from 'react-icons/cg';
 import Produto from '../components/Produto';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import Categories from '../components/Categories';
@@ -83,10 +85,8 @@ class Principal extends React.Component {
   render() {
     const { campoDeBusca, valor, resultadoDaBusca, quantidadeCarrinho } = this.state;
     return (
-      <div>
-        <header>
-          <div>
-
+        <div className="principalHeader">
+          <div className="principalPesquisa">
             <input
               value={ campoDeBusca }
               onChange={ this.onChange }
@@ -94,42 +94,58 @@ class Principal extends React.Component {
               type="text"
               data-testid="query-input"
             />
-            <button
-              type="button"
-              data-testid="query-button"
-              onClick={ this.handleClick }
-            >
-              Pesquisar
-            </button>
+            <label htmlFor="principalButton">
+              <CgSearch className="principalLupa" />
+              <button
+                id="principalButton"
+                type="button"
+                data-testid="query-button"
+                onClick={ this.handleClick }
+              >
+                button
+              </button>
+            </label>
           </div>
-          <Link to="/cart" data-testid="shopping-cart-button">
-            <div>
-              <p>Cart</p>
+          <div className="principalDivCarrinho">
+            <Link
+              to="/cart"
+              data-testid="shopping-cart-button"
+              className="principalLinkCart"
+            >
+              <FaShoppingCart className="principalCart" />
               <p data-testid="shopping-cart-size">{quantidadeCarrinho}</p>
+            </Link>
+          </div>
+        </div>
+        <div className="principalMain">
+          <Categories
+            getProducts={ this.getCategorieProducts }
+            className="principalCategories"
+          />
+          <div className="principalResultado">
+            <h3
+              data-testid="home-initial-message"
+            >
+              Digite algum termo de pesquisa ou escolha uma categoria.
+
+            </h3>
+            <div className="principalProdutos">
+
+              {valor ? resultadoDaBusca.results.map((ele) => (
+                <Produto
+                  // getCartItens={ this.getCartItens }
+                  objItem={ ele }
+                  key={ ele.title }
+                  productName={ ele.title }
+                  productPrice={ ele.price }
+                  productImage={ ele.thumbnail }
+                  productId={ ele.id }
+                  freeShipping={ ele.shipping.free_shipping }
+                  salvarQuantidade={ this.salvarQuantidade }
+                />)) : <p>Nenhum produto foi encontrado</p> }
             </div>
-          </Link>
-        </header>
-        <Categories getProducts={ this.getCategorieProducts } />
-
-        <h3
-          data-testid="home-initial-message"
-        >
-          Digite algum termo de pesquisa ou escolha uma categoria.
-
-        </h3>
-        {valor ? resultadoDaBusca.results.map((ele) => (
-          <Produto
-            // getCartItens={ this.getCartItens }
-            objItem={ ele }
-            key={ ele.title }
-            productName={ ele.title }
-            productPrice={ ele.price }
-            productImage={ ele.thumbnail }
-            productId={ ele.id }
-            freeShipping={ ele.shipping.free_shipping }
-            salvarQuantidade={ this.salvarQuantidade }
-          />)) : <p>Nenhum produto foi encontrado</p> }
-
+          </div>
+        </div>
       </div>
     );
   }

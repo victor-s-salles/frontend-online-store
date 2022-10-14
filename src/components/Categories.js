@@ -23,10 +23,11 @@ class Categories extends React.Component {
     const { categoriesList } = this.state;
     const { getProducts } = this.props;
     return (
-      <div>
+      <div className="categories">
         <h1>Categorias:</h1>
         {categoriesList.map((categorie) => (
           <button
+            className="categorieButton"
             key={ categorie.id }
             id={ categorie.id }
             type="button"
