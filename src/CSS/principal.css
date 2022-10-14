@@ -1,4 +1,89 @@
-body {
-  background-color: aquamarine;
-  color: red;
+.principalHeader {
+  align-items: center;
+  background-color: rgb(48, 49, 52);
+  display: flex;
+  height: 80px;
+  justify-content: space-around;
+  justify-items: center;
+  width: 100%;
+}
+
+.principalPesquisa {
+  position: relative;
+}
+
+.principalHeader button {
+  display: none;
+  outline: 0;
+  outline-style: 0;
+}
+
+.principalHeader label {
+  left: 85%;
+  position: absolute;
+}
+
+.principalLupa {
+  height: 23px;
+  width: 30px;
+}
+
+.principalLinkCart {
+  box-sizing: border-box;
+  color: black;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  text-decoration: none;
+  width: 40px;
+
+}
+
+.principalLinkCart p {
+  color: rgb(207, 207, 207);
+  position: absolute;
+  top: 1.8%;
+}
+
+.principalCart {
+  height: 40px;
+  width: 40px;
+}
+
+.principalDivCarrinho {
+  box-sizing: border-box;
+  height: 40px;
+  width: 40px;
+}
+
+.principalCategories {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+}
+
+.principalMain {
+  display: flex;
+}
+
+.principalResultado h3 {
+  justify-self: flex-start;
+}
+
+.principalResultado {
+  color: rgb(186, 188, 191);
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 0;
+  position: relative;
+  text-align: center;
+  width: 70%;
+}
+
+.principalProdutos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }

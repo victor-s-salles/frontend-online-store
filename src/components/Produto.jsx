@@ -24,14 +24,24 @@ class Produto extends React.Component {
     const { productArray } = this.state;
 
     return (
-      <div data-testid="product">
-        <Link to={ `/produtoDetalhado/${productId}` } data-testid="product-detail-link">
-          <p>{ productName }</p>
-          <p>{ productPrice }</p>
+      <div data-testid="product" className="produto">
+        <Link
+          className="produtoLink"
+          to={ `/produtoDetalhado/${productId}` }
+          data-testid="product-detail-link"
+        >
           <img src={ productImage } alt={ productName } />
+          <p className="produtoName">{ productName }</p>
         </Link>
-        <div>{freeShipping && <h4 data-testid="free-shipping">Frete Grátis</h4>}</div>
+        <p className="produtoPrice">{`R$ ${productPrice}` }</p>
+        <div
+          className="frete"
+        >
+          {freeShipping && <h4 data-testid="free-shipping">Frete Grátis</h4>}
+
+        </div>
         <button
+          className="produtoButton"
           data-testid="product-add-to-cart"
           type="button"
           onClick={ () => {

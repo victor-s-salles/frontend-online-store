@@ -1,0 +1,59 @@
+.produto {
+  align-items: center;
+  background-color: rgb(65, 66, 64);
+  box-shadow: 2.759px 2.759px 5.518px rgba(0, 0, 0, 0.836);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 358.7px;
+  margin: 10px;
+  position: relative;
+  width: 279.6px;
+}
+
+.produto img {
+  height: 130px;
+  margin: auto;
+  padding-top: 5px;
+  position: relative;
+  width: 150px;
+}
+
+.produtoName {
+  color: rgb(186, 188, 191);
+  position: relative;
+  width: 200px;
+}
+
+.produtoPrice {
+  color: greenyellow;
+  margin: auto;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.produtoButton {
+  border-radius: 20px;
+  padding-bottom: 10px;
+  position: relative;
+  top: -15px;
+}
+
+.produtoButton:hover {
+  box-shadow: 0 0 8px rgb(207, 207, 207);
+}
+
+.frete {
+  color: greenyellow;
+  left: 60%;
+  position: absolute;
+}
+
+.produtoLink {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  justify-content: space-around;
+  justify-items: center;
+  text-decoration: none;
+}
