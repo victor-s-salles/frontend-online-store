@@ -85,7 +85,6 @@ class Principal extends React.Component {
   render() {
     const { campoDeBusca, valor, resultadoDaBusca, quantidadeCarrinho } = this.state;
     return (
-      <div>
         <div className="principalHeader">
           <div className="principalPesquisa">
             <input
@@ -119,7 +118,6 @@ class Principal extends React.Component {
           </div>
         </div>
         <div className="principalMain">
-
           <Categories
             getProducts={ this.getCategorieProducts }
             className="principalCategories"

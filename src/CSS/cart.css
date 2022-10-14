@@ -1,0 +1,75 @@
+.Cart-Header {
+  background-color: #003be5;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  display: flex;
+  height: 100px;
+  justify-content: center;
+  text-align: center;
+}
+
+.Cart-Header img {
+  padding: 15px;
+}
+
+.Cart-CartItensDiv {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  margin-left: 2%;
+  margin-top: 50px;
+  padding: 30px;
+  width: 45%;
+}
+
+.Cart-Title {
+  font-size: 24px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.CartLinkBack {
+  align-items: center;
+  color: #2fc18c;
+  display: flex;
+  height: 35px;
+  padding: 20px;
+  text-decoration: none;
+  width: 90px;
+}
+
+.CartLinkBack img {
+  height: 20px;
+  margin: 5px;
+  width: 20px;
+}
+
+.CartSecondaryDiv {
+
+  /* background-color: #003be5; */
+  display: flex;
+}
+
+.CartTotalDiv {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 180px;
+}
+
+.CartSomaTotal {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.CartFinishBtn {
+  background: #31c28d;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  height: 38.63px;
+  line-height: 16px;
+  text-align: center;
+  width: 244.65px;
+}
