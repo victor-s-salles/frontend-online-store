@@ -1,18 +1,23 @@
 .categories {
-  background-color: rgb(42, 43, 46);
+  background-color: rgb(145, 150, 163);
   display: flex;
   flex-direction: column;
   width: 300px;
 }
 
 .categories h1 {
+  font-family: Epilogue;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
   text-align: center;
 }
 
 .categorieButton {
-  background-color: rgb(42, 43, 46);
+  background-color: rgb(173, 179, 196);
   border: none;
-  color: white;
+  color: #444955;
   padding: 20px;
 }
 

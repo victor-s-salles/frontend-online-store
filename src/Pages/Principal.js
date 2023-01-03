@@ -85,6 +85,7 @@ class Principal extends React.Component {
   render() {
     const { campoDeBusca, valor, resultadoDaBusca, quantidadeCarrinho } = this.state;
     return (
+      <div>
         <div className="principalHeader">
           <div className="principalPesquisa">
             <input
@@ -94,17 +95,18 @@ class Principal extends React.Component {
               type="text"
               data-testid="query-input"
             />
-            <label htmlFor="principalButton">
-              <CgSearch className="principalLupa" />
-              <button
-                id="principalButton"
-                type="button"
-                data-testid="query-button"
-                onClick={ this.handleClick }
-              >
-                button
-              </button>
-            </label>
+
+            {/* <label htmlFor="principalButton"> */}
+            <CgSearch className="principalLupa" />
+            <button
+              id="principalButton"
+              type="button"
+              data-testid="query-button"
+              onClick={ this.handleClick }
+            >
+              button
+            </button>
+            {/* </label> */}
           </div>
           <div className="principalDivCarrinho">
             <Link

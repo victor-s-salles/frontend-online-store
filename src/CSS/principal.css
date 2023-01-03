@@ -1,6 +1,7 @@
 .principalHeader {
   align-items: center;
-  background-color: rgb(48, 49, 52);
+  background-color: #003be5;
+  
   display: flex;
   height: 80px;
   justify-content: space-around;
@@ -87,6 +88,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
 /* body {
   background-color: aquamarine;
   color: red;

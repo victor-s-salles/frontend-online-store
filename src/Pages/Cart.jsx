@@ -92,6 +92,7 @@ class Cart extends React.Component {
       setArray.add(item.id);
       return !duplicatedItem;
     });
+
     this.setState({
       cartArrayFiltred: filtredArray,
     }, this.calculaTotaldoCarrinho);
